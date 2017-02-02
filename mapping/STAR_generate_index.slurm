@@ -9,6 +9,6 @@
 #SBATCH -J STAR_idx
 #SBATCH --mem=150000
 #SBATCH --time=08:00:00
-#$1 genome directory_STAR2.5.1b; $2: genome.fasta
+#$1: genome directory_STAR2.5.1b; $2: genome.fasta
 mkdir -f ${1}_STAR2.5.1b
 STAR --runThreadN 16 --runMode genomeGenerate --genomeDir ${1}_STAR2.5.1b --genomeFastaFiles $2 --genomeChrBinNbits 18

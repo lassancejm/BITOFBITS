@@ -95,7 +95,8 @@ cd run
 #Cluster features 
 #-------------------------------------------------------------------------------------------
 echo "#!/bin/sh"
-echo "#SBATCH -n 16"
+echo "#SBATCH -n 1"
+echo "#SBATCH --cpus-per-task=16"
 echo "#SBATCH -N 1" 
 echo "#SBATCH -t 300 #Runtime in minutes"
 echo "#SBATCH -e mapping_${prefix}.e" 
@@ -125,13 +126,13 @@ echo "mkdir ${output}_${prefix}"
 
 #parameters based on rsem pipeline, which uses encode3 params (with a few exception)
 if [ $MODE == "rsem" ]; then
-    echo "STAR --runMode alignReads --runThreadN 16 --genomeDir ${STARidx} --readFilesIn ${file1} ${file2} --readFilesCommand zcat --outFileNamePrefix ${output}_${prefix} --twopassMode Basic --outFilterType BySJout --outFilterMultimapNmax 20 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 -sjdbScore 1 --genomeLoad NoSharedMemory --outSAMattributes All --outSAMtype BAM Unsorted --quantMode TranscriptomeSAM --quantTranscriptomeBan IndelSoftclipSingleend --outSAMattrRGline ID:${prefix} PL:ILLUMINA LB:${prefix} SM:${prefix} PU:barcode"
+    echo "STAR --runMode alignReads --runThreadN ${SLURM_CPUS_PER_TASK} --genomeDir ${STARidx} --readFilesIn ${file1} ${file2} --readFilesCommand zcat --outFileNamePrefix ${output}_${prefix} --twopassMode Basic --outFilterType BySJout --outFilterMultimapNmax 20 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 -sjdbScore 1 --genomeLoad NoSharedMemory --outSAMattributes All --outSAMtype BAM Unsorted --quantMode TranscriptomeSAM --quantTranscriptomeBan IndelSoftclipSingleend --outSAMattrRGline ID:${prefix} PL:ILLUMINA LB:${prefix} SM:${prefix} PU:barcode"
 
 #for gatk, important to have unique mapped read flag to 60
 elif [ $MODE == "gatk" ]; then 
-    echo "STAR --runMode alignReads --runThreadN 16 --genomeDir ${STARidx} --readFilesIn ${file1} ${file2} --readFilesCommand zcat --outFileNamePrefix ${output}_${prefix} --twopassMode Basic --outFilterType BySJout --outFilterMultimapNmax 20 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 -sjdbScore 1 --genomeLoad NoSharedMemory --outSAMattributes All --outSAMtype BAM SortedByCoordinate --outSAMattrRGline ID:${prefix} PL:ILLUMINA LB:${prefix} SM:${prefix} PU:barcode --outSAMmapqUnique 60"
+    echo "STAR --runMode alignReads --runThreadN ${SLURM_CPUS_PER_TASK} --genomeDir ${STARidx} --readFilesIn ${file1} ${file2} --readFilesCommand zcat --outFileNamePrefix ${output}_${prefix} --twopassMode Basic --outFilterType BySJout --outFilterMultimapNmax 20 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 -sjdbScore 1 --genomeLoad NoSharedMemory --outSAMattributes All --outSAMtype BAM SortedByCoordinate --outSAMattrRGline ID:${prefix} PL:ILLUMINA LB:${prefix} SM:${prefix} PU:barcode --outSAMmapqUnique 60"
 elif [ $MODE == "cuff" ]; then
-    echo "STAR --runMode alignReads --runThreadN 16 --genomeDir ${STARidx} --readFilesIn ${file1} ${file2} --readFilesCommand zcat --outFileNamePrefix ${output}_${prefix} --twopassMode Basic --outFilterType BySJout --outFilterMultimapNmax 20 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 -sjdbScore 1 --genomeLoad NoSharedMemory --outSAMattributes Standard --outSAMtype BAM Unsorted SortedByCoordinate --outSAMattrRGline ID:${prefix} PL:ILLUMINA LB:${prefix} SM:${prefix} PU:barcode --outSAMstrandField intronMotif --outFilterIntronMotifs RemoveNoncanonical --alignEndsType EndToEnd"
+    echo "STAR --runMode alignReads --runThreadN ${SLURM_CPUS_PER_TASK} --genomeDir ${STARidx} --readFilesIn ${file1} ${file2} --readFilesCommand zcat --outFileNamePrefix ${output}_${prefix} --twopassMode Basic --outFilterType BySJout --outFilterMultimapNmax 20 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 -sjdbScore 1 --genomeLoad NoSharedMemory --outSAMattributes Standard --outSAMtype BAM Unsorted SortedByCoordinate --outSAMattrRGline ID:${prefix} PL:ILLUMINA LB:${prefix} SM:${prefix} PU:barcode --outSAMstrandField intronMotif --outFilterIntronMotifs RemoveNoncanonical --alignEndsType EndToEnd"
 fi;
 
 echo "echo \" mapping command executed\""

@@ -101,7 +101,7 @@ echo "#SBATCH -t 300 #Runtime in minutes"
 echo "#SBATCH -e mapping_${prefix}.e" 
 echo "#SBATCH -o mapping_${prefix}.o" 
 echo "#SBATCH -p general,holyhoekstra,unrestricted #Partition to submit to" 
-echo "#SBATCH --mem=100000 #Memory per node in MB"
+echo "#SBATCH --mem=50000 #Memory per node in MB"
 
 echo "echo -n \"Starting job on \""
 echo "date"

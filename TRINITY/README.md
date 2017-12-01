@@ -10,7 +10,8 @@ Usage: ./TrinityAssembly.sh [-h] [-l][-r][-g][-m]
     -g grid conf file
     -m long reads
     
-What the script does: prepare a bash file with all the necessary arguments for sbatch submission to slurm Scheduler; submit the job to the grid. 
+What the script does: prepare a bash file with all the necessary arguments for sbatch submission to slurm Scheduler and  
+submit the job to the grid. 
 ```
 
 ## TrinityAssembly_onestep.sh
@@ -25,7 +26,8 @@ Usage: ./TrinityAssembly_onestep.sh [-h] [-l][-r][-g][-m][-s]
     -g grid conf file
     -m long reads
     
-What the script does: prepare a bash file with all the necessary arguments for sbatch submission to slurm Scheduler; submit the job to the grid. 
+What the script does: prepare a bash file with all the necessary arguments for sbatch submission to slurm Scheduler
+and submit the job to the grid. 
 ```
 ## grid_slurm.conf:
 config file for HpcGridRunner using Slurm

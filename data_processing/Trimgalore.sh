@@ -76,9 +76,14 @@ echo "#SBATCH -n 1"
 echo "#SBATCH --time=05:00:00  #Runtime in minutes"
 echo "#SBATCH -e trim_${prefix}.e" 
 echo "#SBATCH -o trim_${prefix}.o" 
-echo "#SBATCH -p serial_requeue,holyhoekstra #Partition to submit to" 
+echo "#SBATCH -p serial_requeue,general,shared,holyhoekstra #Partition to submit to" 
 echo "#SBATCH --mem=10000 #Memory per node in MB"
+echo "#SBATCH --tmp=20000 #ensure that there is free temp space"
 echo "#SBATCH -J ${prefix}"
+
+echo "source new-modules.sh"
+echo "module purge"
+echo "module load cutadapt/1.8.1-fasrc01"
 
 echo "echo -n \"Starting job on \""
 echo "date"
@@ -101,6 +106,7 @@ echo "echo \" ready to launch!\""
 
 if [ $encoding == "Phred+64" ]; then encoding="phred64"; elif [ $encoding == "Phred+33" ]; then encoding="phred33"; fi 
 
+#modify with your path to trim_galore
 if [ $clipping != 0 ]; then echo "perl /n/home01/lassance/Software/trim_galore_modif --paired --trim1 --${encoding} --length 36 --quality 20 --stringency 1 -a ${adapter} -a2 $a2 --retain_unpaired --clip_R1 ${clipping} --clip_R2 ${clipping} ${file1} ${file2}"; else  echo "perl /n/home01/lassance/Software/trim_galore_modif --paired --trim1 --${encoding} --length 36 --quality 20 --stringency 1 -a ${adapter} -a2 $a2 --retain_unpaired ${file1} ${file2}"; fi  
  
 #-------------------------------------------------------------------------------------------

@@ -103,12 +103,13 @@ echo "#SBATCH -e mapping_${prefix}.e"
 echo "#SBATCH -o mapping_${prefix}.o" 
 echo "#SBATCH -p general,holyhoekstra,shared #Partition to submit to" 
 echo "#SBATCH --mem=50000 #Memory per node in MB"
+echo "#SBATCH -J ${prefix}_mapping"q
 echo "#uncomment next line if you want to load module from RC"
 echo "#source new-modules.sh; module load STAR"
 echo "echo -n \"Starting job on \""
 echo "date"
-echo "mkdir /scratch/STAR_${prefix}_${i}/" 
-echo "scratchFolder=\"/scratch/STAR_${prefix}_${i}/\""
+echo "if ! [ -e /scratch/STAR_${prefix} ]; then mkdir /scratch/STAR_${prefix}/; else rm -r /scratch/STAR_${prefix}; fi" 
+echo "scratchFolder=\"/scratch/STAR_${prefix}/\""
 
 #-------------------------------------------------------------------------------------------
 #Copy Files into scratchFolder

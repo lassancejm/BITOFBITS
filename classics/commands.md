@@ -8,6 +8,14 @@
 
 note: tools distributed with samtools; access using `module load samtools`
 
+* Compress sam file:
+
+with samtools:
+`samtools view -Shb file.sam > file.bam`
+
+with Picard:
+`java -jar picard.jar SortSam I=file.sam O=file.bam SORT_ORDER=unsorted` 
+
 * determine size of a folder:
 
 `du -sh directory-name`

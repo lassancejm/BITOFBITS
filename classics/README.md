@@ -47,3 +47,7 @@ add 'v' to increase verbosity:
 * changing permission of a file
 
 `chmod u+rw,g+rw,o-rwx file`
+
+* check quota on Lustre filesystem
+
+`lfs quota -hg hoekstra_lab /n/regal` `lfs quota -hg hoekstra_lab /n/holylfs`

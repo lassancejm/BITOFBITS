@@ -50,5 +50,6 @@ add 'v' to increase verbosity:
 
 * check quota on Lustre filesystem
 
-`lfs quota -hg hoekstra_lab /n/regal` 
+`lfs quota -hg hoekstra_lab /n/regal`
+
 `lfs quota -hg hoekstra_lab /n/holylfs`

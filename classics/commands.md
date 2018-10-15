@@ -42,7 +42,7 @@ add 'v' to increase verbosity:
 
 * changing permission of a folder
 
-`chmod -R u+rw,g+rw,o-rwx folder`
+`chmod -R u+rw,g+rw,o-rwx folder`  : give read+writing permission to user and group levels; remove read-write-execute permission to the rest
 
 * changing permission of a file
 

@@ -1,4 +1,4 @@
-# Here are some commands of frequent use
+# Some commands of frequent use
 
 * Compress vcf file:
 
@@ -11,6 +11,14 @@ note: tools distributed with samtools; access using `module load samtools`
 * determine size of a folder:
 
 `du -sh directory-name`
+
+* Compress file with gzip:
+
+`gzip file-name` will create file-name.gz
+
+* Uncompress gzipped file:
+
+`gunzip file-name.gz` or `gzip -d file-name.gz`
 
 * Compress folder:
 
